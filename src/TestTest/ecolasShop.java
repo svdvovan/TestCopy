@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Iterator;
 
 /**
  * Created by SretenskyVD on 23.07.2018.
@@ -44,18 +45,27 @@ public class ecolasShop {
 
                 Document doc2 = Jsoup.connect(addressUrl).get();
 
-                Elements Price = doc2.getElementsByClass("price");
+                String Price = doc2.getElementsByClass("autocalc-product-price").text();
                 Elements Unit = doc2.getElementsByClass("characteristics-list__label");
                 Elements Value = doc2.getElementsByClass("characteristics-list__value");
                 Elements Image = doc2.getElementsByClass("preview");
-                //String NameProduct = doc2.getElementsByClass("page-title  ").select("h1").text();
                 String NameProduct = doc2.getElementsByClass("title-category").select("h1").text();
+                String Kod = doc2.getElementsByClass("list-unstyled product-view").select("span").text();
+                String Description = doc2.getElementsByClass("tab-pane active").text();
+
+
+
+
 
                 System.out.println(NameProduct);
 
                 Row row = sheet.createRow(y);
+
                 Cell cell = row.createCell(0);
-                cell.setCellValue(NameProduct);
+                cell.setCellValue(Kod);
+
+                Cell cell1 = row.createCell(3);
+                cell1.setCellValue(NameProduct);
 //
 //                String NameProduct2 = NameProduct.replace("\"","");
 //                System.out.println(NameProduct2);
@@ -65,6 +75,26 @@ public class ecolasShop {
 //                System.out.println(NameProduct4);
 //                String NameProduct5 = NameProduct4.replace(".","");
 //                System.out.println(NameProduct5);
+                System.out.println(Price);
+
+                Cell cell2 = row.createCell(4);
+                cell2.setCellValue(Price);
+
+//                Cell cell5 = row.createCell(5);
+//                cell2.setCellValue(Description);
+
+
+
+                Elements table = doc2.select("table");
+                Elements row1 = table.select("tr");
+                Iterator<Element> ite = table.select("td").iterator();
+
+                for (Element rows : row1) {
+                    System.out.println(ite.next().text() + " ");
+                    System.out.print(ite.next().text() + "|");
+                }
+
+
 
 
                 int Attr=0;
@@ -74,8 +104,8 @@ public class ecolasShop {
 
                     Attr++;
 
-                    Cell cell1 = row.createCell(1);
-                    cell1.setCellValue(Opis);
+                    Cell cell3 = row.createCell(3);
+                    cell3.setCellValue(Opis);
 
                 }
 
