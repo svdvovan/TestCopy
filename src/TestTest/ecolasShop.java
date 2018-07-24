@@ -26,23 +26,36 @@ public class ecolasShop {
         CreationHelper createHelper = wb.getCreationHelper();
         Sheet sheet = wb.createSheet("1лист");
 
-        //    System.setProperty("javax.net.ssl.trustStore", "S:/ProjectJava/ecolasShop/cert/ecolashopruru.crt.jks");
-        System.setProperty("javax.net.ssl.trustStore", "F:/Projects/TestCopy/cert/ecolashopru.crt.jks");
-    //    String Path = "https://ecolashop.ru/lamps/?limit=500";
+            System.setProperty("javax.net.ssl.trustStore", "S:/ProjectJava/ecolasShop/cert/ecolashopruru.crt.jks");
+       // System.setProperty("javax.net.ssl.trustStore", "F:/Projects/TestCopy/cert/ecolashopru.crt.jks");
+    //    String Path = "https://ecolashop.ru/lamps/";
+     //   String Path = "https://ecolashop.ru/spotlight/";
      //   String Path =  "https://ecolashop.ru/lights/?limit=590";
-        String Path =  "https://ecolashop.ru/lights/";
-
+      //  String Path =  "https://ecolashop.ru/lights/";
+      //  String Path = "https://ecolashop.ru/led-stripe/";
+//     String Path =  "https://ecolashop.ru/adapters/?limit=100";
+     //  String Path = "https://ecolashop.ru/lampholders/?limit=30";
+        String Path = "https://ecolashop.ru/led-panels/?limit=30";
 
             int Page = 1;
 
-            for (int count = 0; count <= 5; count++) {
-                Path = "https://ecolashop.ru/lights/?page=" + Page;
+            for (int count = 1; count <= 1; count++) {
+            //    Path = "https://ecolashop.ru/lights/?page=" + Page;
+            //    Path = "https://ecolashop.ru/lamps/?page=" + Page;
+            //    Path = "https://ecolashop.ru/spotlight/?page=" + Page;
+           //     Path = "https://ecolashop.ru/led-stripe/?page=" + Page;
+           //     Path = "https://ecolashop.ru/adapters/?limit=100";
+         //       Path = "https://ecolashop.ru/lampholders/?limit=30";
+                Path = "https://ecolashop.ru/led-panels/?limit=30";
+
                 Document doc1 = (Document) Jsoup.connect(Path).get();
                 Elements links1 = doc1.getElementsByClass("product-layout product-list col-xs-12");
                 String Category = doc1.getElementsByClass("title-category").select("h1").text();
 
 
                 int y = 0;
+
+
                 for (Element link1 : links1) {
                     String addressUrl = (links1.get(y).select("a[href]").attr("abs:href"));
                     System.out.println(addressUrl);
@@ -109,13 +122,11 @@ public class ecolasShop {
                         y3++;
 
                         File f = new File(FileName);
-                        //                System.out.print(Image.get(Img).attr("src")+ ";");
-//                    System.out.print("data/image/auto/1/" + f.getName() + ",");
-
 
                         try {
                             //Копирование фото
-                            String FILENAME = "F:/Projects/TestCopy/foto/" + Category + "/" + NameProduct + "/" + f.getName();
+                       //     String FILENAME = "F:/Projects/TestCopy/foto/" + Category + "/" + NameProduct + "/" + f.getName();
+                            String FILENAME = "S:/ProjectJava/ecolasShop/foto/" + Category + "/" + NameProduct + "/" + f.getName();
                             String SvDPDFURL = FileName;
                             File file = new File(FILENAME);
 
@@ -131,21 +142,27 @@ public class ecolasShop {
                     System.out.println();
 
                     y++;
+
                 }
 
-            }
 
-        Page++;
-        try (OutputStream fileOut = new FileOutputStream(+Page+"book.xls")) {
-            wb.write(fileOut);
 
-        } catch(FileNotFoundException e){
+         OutputStream fileOut = new FileOutputStream("S:/ProjectJava/ecolasShop/"+ Page+ "book.xls", true) ;
+          try { wb.write(fileOut);
+              fileOut.close();
+        }
+
+
+        catch(FileNotFoundException e){
             e.printStackTrace();
         } catch(IOException e){
             e.printStackTrace();
 
         }
 
+
+                Page++;
+            }
                }
 
     }
