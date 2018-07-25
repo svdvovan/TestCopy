@@ -31,22 +31,19 @@ public class AllOpenCart {
                int y = 0;
                for (Element link1 : links1) {
                    String addressUrl = (links1.get(y).select("a").attr("_href"));
-                   System.out.println(addressUrl);
+           //        System.out.println(addressUrl);
 
-//            Element table = doc1.getElementsByTag("table").get(8);
-//            Elements row = table.select("tr");
-//            Iterator<Element> ite = table.select("td").iterator();
-//
-//
-//            for (Element rows : row) {
-//                String Site = ite.next().select("a").attr("_href");
-//
-//                System.out.println(Site);
-//            }
+                   try{
+                   Document doc2 = Jsoup.connect(addressUrl).get();
+
+                   String Ssil = doc2.select("a").attr("href");
+                   System.out.println(Ssil);}
+                   catch (IOException e){
+
+                   }
 
 
-//            }
-//
+
                    y++;
                }
                Page++;

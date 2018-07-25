@@ -69,8 +69,14 @@ public class TestDrive {
 
                 int Attr=0;
                 for (Element Units: Unit) {
+                    String  Opis = Unit.get(Attr).text() + "|" + Value.get(Attr).text();
                     System.out.print(Unit.get(Attr).text() + "|" + Value.get(Attr).text() + "\n");
+
                     Attr++;
+
+                    Cell cell1 = row.createCell(1);
+                    cell1.setCellValue(Opis);
+
                 }
 
                 int Img=0;
