@@ -43,8 +43,12 @@ import java.util.Iterator;
         //прокси http://spys.one/
         int Page = 4;
 
-        for (int count = 1; count <= 36; count++) {
-            Path = "https://technoschock.ru/catalog/moyki_dlya_kukhni/?n=ajaxpages_gmci&n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+        for (int count = 1; count <= 37; count++) {
+          //  Path = "https://technoschock.ru/catalog/moyki_dlya_kukhni/?n=ajaxpages_gmci&n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+          //  Path = "https://technoschock.ru/catalog/kukhonnye_smesiteli/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+          //  Path = "https://technoschock.ru/catalog/dukhovye_shkafy/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+          //  Path = "https://technoschock.ru/catalog/varochnye_poverkhnosti/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+            Path = "https://technoschock.ru/catalog/vytyazhki/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
             //    System.out.println(Path);
             System.setProperty("https.proxyHost", "103.19.81.76");
             System.setProperty("https.proxyPort", "3128");
@@ -173,7 +177,8 @@ import java.util.Iterator;
             }
 
 
-            OutputStream fileOut = new FileOutputStream("S:/ProjectJava/technoschock/" + Page + "book.xls", false);
+          //  OutputStream fileOut = new FileOutputStream("S:/ProjectJava/technoschock/" + Page + "book.xls", false);
+            OutputStream fileOut = new FileOutputStream("O:/YandexDisk/kwork/technoshok/" + Page + "book.xls", false);
             try {
                 wb.write(fileOut);
                 fileOut.close();
