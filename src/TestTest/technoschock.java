@@ -41,14 +41,17 @@ import java.util.Iterator;
 
 ///https://technoschock.ru/catalog/moyki_dlya_kukhni/?n=ajaxpages_gmci&n=Y&n=ajaxpages_gmci&PAGEN_1=1
         //прокси http://spys.one/
-        int Page = 4;
+        int Page = 2;
 
-        for (int count = 1; count <= 37; count++) {
+        for (int count = 1; count <= 23; count++) {
           //  Path = "https://technoschock.ru/catalog/moyki_dlya_kukhni/?n=ajaxpages_gmci&n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
           //  Path = "https://technoschock.ru/catalog/kukhonnye_smesiteli/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
           //  Path = "https://technoschock.ru/catalog/dukhovye_shkafy/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
           //  Path = "https://technoschock.ru/catalog/varochnye_poverkhnosti/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
-            Path = "https://technoschock.ru/catalog/vytyazhki/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+         //   Path = "https://technoschock.ru/catalog/vytyazhki/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+          //  Path = "https://technoschock.ru/catalog/mikrovolnovye_pechi/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+          //  Path = "https://technoschock.ru/catalog/posudomoechnye_mashiny/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
+            Path = "https://technoschock.ru/catalog/kholodilniki/?n=Y&n=ajaxpages_gmci&PAGEN_1=" + Page;
             //    System.out.println(Path);
             System.setProperty("https.proxyHost", "103.19.81.76");
             System.setProperty("https.proxyPort", "3128");
