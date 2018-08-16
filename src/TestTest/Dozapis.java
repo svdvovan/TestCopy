@@ -62,7 +62,7 @@ public class Dozapis {
         int Page = 1;
 
 
-        for (int count = 1; count <= 2; count++) {
+        for (int count = 1; count <= 5; count++) {
             FileInputStream inp = new FileInputStream(new File("S:/ProjectJava/technoschock/book.xls"));
             Workbook wb2 = WorkbookFactory.create(inp);
             Sheet sheet = wb2.getSheetAt(0);
