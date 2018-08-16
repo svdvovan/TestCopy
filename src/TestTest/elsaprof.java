@@ -16,8 +16,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.awt.FlowLayout;
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Iterator;
 
@@ -28,13 +29,12 @@ public class elsaprof {
         Workbook wb = new HSSFWorkbook();
         CreationHelper createHelper = wb.getCreationHelper();
         Sheet sheet1 = wb.createSheet("1лист");
-        FileOutputStream fileOut = new FileOutputStream("S:/ProjectJava/elsaprof/book.xls");
+        //FileOutputStream fileOut = new FileOutputStream("S:/ProjectJava/elsaprof/book.xls");
+        FileOutputStream fileOut = new FileOutputStream("book.xls");
 
         try {
             wb.write(fileOut);
             fileOut.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -47,10 +47,26 @@ public class elsaprof {
 //        Document doc1 = Jsoup.parse(input, "UTF-8");
 
 String Hostname = "store.elsaprof.ru";
-        JFrame frame = new JFrame("Идет парсинг сайта " + Hostname);
 
-    //   String Path = "http://store.elsaprof.ru/product-category/gel-laki/odnofaznye/";
-        String Path = "http://store.elsaprof.ru/product-category/aksessuary/pribory/";
+     JFrame startFrame = new JFrame("Подготовка подключения");
+        startFrame.setSize(500,100);
+        startFrame.setLocationRelativeTo(null);
+
+
+     //   JOptionPane.showOptionDialog(null, "Hello","Empty?", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+        JLabel topLabel = new JLabel("Подождите идет запуск программы",SwingConstants.CENTER);
+
+        startFrame.add(topLabel);
+        startFrame.setVisible(true);
+
+
+
+//        JOptionPane.showMessageDialog(null, "Simple Information Message");
+       JFrame frame = new JFrame("Идет парсинг сайта " + Hostname);
+
+
+       String Path = "http://store.elsaprof.ru/product-category/gel-laki/odnofaznye/";
+     //  String Path = "http://store.elsaprof.ru/product-category/aksessuary/pribory/";
 
         //    String Path = "https://technoschock.ru/catalog/roboty_dlya_doma/";
         // String Path = "https://technoschock.ru/catalog/moyki_dlya_kukhni/";
@@ -64,12 +80,13 @@ String Hostname = "store.elsaprof.ru";
 
         for (int count = 1; count <= LastPage; count++) {
 
-            FileInputStream inp = new FileInputStream(new File("S:/ProjectJava/elsaprof/book.xls"));
+        //    FileInputStream inp = new FileInputStream(new File("S:/ProjectJava/elsaprof/book.xls"));
+            FileInputStream inp = new FileInputStream(new File("book.xls"));
             Workbook wb2 = WorkbookFactory.create(inp);
             Sheet sheet = wb2.getSheetAt(0);
-                     Path = "http://store.elsaprof.ru/product-category/aksessuary/pribory/page/" + Page;
+      //               Path = "http://store.elsaprof.ru/product-category/aksessuary/pribory/page/" + Page;
 
-        //    Path = "http://store.elsaprof.ru/product-category/gel-laki/odnofaznye/page/" + Page;
+            Path = "http://store.elsaprof.ru/product-category/gel-laki/odnofaznye/page/" + Page;
 
             //    System.out.println(Path);
 //            System.setProperty("https.proxyHost", "103.19.81.76");
@@ -78,13 +95,14 @@ String Hostname = "store.elsaprof.ru";
 //            System.setProperty("https.proxyPort", "8080");
             try {
                 Document doc1 = (Document) Jsoup.connect(Path).get();
-
+                startFrame.dispose();
 
                 JProgressBar progressBar = new JProgressBar();
                 progressBar.setIndeterminate(true);
                 progressBar.setStringPainted(true);
                 String DF = Integer.toString(Page);
-                progressBar.setString(DF + " страница");
+
+                progressBar.setString( "Страница " +DF);
                 progressBar.setValue(Page);
 
 
@@ -94,6 +112,11 @@ String Hostname = "store.elsaprof.ru";
                 frame.setLocationRelativeTo(null);
                 frame.pack();
                 frame.setVisible(true);
+
+
+
+
+
 
                 // Elements links1 = doc1.getElementsByClass("more").select("a[class=more]");
                 Elements links1 = doc1.getElementsByClass("mpcth-post-thumbnail");
@@ -228,7 +251,8 @@ String Hostname = "store.elsaprof.ru";
                 }
                 try {
 
-                    FileOutputStream fileOut1 = new FileOutputStream("S:/ProjectJava/elsaprof/book.xls");
+                    //FileOutputStream fileOut1 = new FileOutputStream("S:/ProjectJava/elsaprof/book.xls");
+                    FileOutputStream fileOut1 = new FileOutputStream("book.xls");
 
                     //     OutputStream fileOut = new FileOutputStream("O:/YandexDisk/kwork/technoshok/" + Page + "book.xls", false);
 
@@ -236,21 +260,25 @@ String Hostname = "store.elsaprof.ru";
                     fileOut1.close();
 
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                     e.printStackTrace();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
 
                 Page++;
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 frame.dispose();
-
+                JOptionPane.showMessageDialog(null, "Парсинг завершен, возможно вы указали больше страниц чем есть на сайте. Количество обработанных страниц "+ (Page-1)  );
+                System.exit(0);
             }
 
             }
 
         frame.dispose();
+        JOptionPane.showMessageDialog(null, "Парсинг завершен. Количество обработанных страниц "+ (Page-1));
     }
 
 }
